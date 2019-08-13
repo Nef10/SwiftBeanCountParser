@@ -30,7 +30,6 @@ jobs:
         echo "\
         protocol=https
         host=github.com
-        username=Nef10
         " | git credential fill
     - name: Fastlane
       run: bundle exec fastlane ci
