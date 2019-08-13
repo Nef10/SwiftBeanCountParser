@@ -31,7 +31,7 @@ jobs:
         protocol=https
         host=github.com
         username=Nef10
-        " | git git credential fill
+        " | git credential fill
     - name: Fastlane
       run: bundle exec fastlane ci
       env:
