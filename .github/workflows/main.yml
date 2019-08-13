@@ -23,15 +23,13 @@ jobs:
         protocol=https
         host=github.com
         username=Nef10
-        password=${{ secrets.GITHUB_TOKEN }}
-        " | git credential-osxkeychain store
+        password=${{ secrets.GITHUB_TOKEN }}" | git credential-osxkeychain store
    - name: Test GitHub Token for Carthage
       run: |
         echo "\
         protocol=https
         host=github.com
-        username=Nef10
-        " | git git credential fill
+        username=Nef10" | git git credential fill
     - name: Fastlane
       run: bundle exec fastlane ci
       env:
