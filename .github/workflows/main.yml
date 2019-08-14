@@ -31,8 +31,6 @@ jobs:
         protocol=https
         host=github.com
         " | git credential fill
-    - name: test clone
-      run: git clone https://github.com/Nef10/SwiftBeanCountModel.git
     - name: Fastlane
       run: bundle exec fastlane ci
       env:
