@@ -17,21 +17,8 @@ jobs:
       run: brew bundle
     - name: Bundle
       run: bundle install
-    - name: Save GitHub Token for Carthage
-      run: |
-        echo "\
-        protocol=https
-        host=github.com
-        username=Nef10
-        password=${{ secrets.GITHUB_CI_TOKEN }}
-        " | git credential-osxkeychain store
-    - name: Test GitHub Token for Carthage
-      run: |
-        echo "\
-        protocol=https
-        host=github.com
-        " | git credential fill
     - name: Fastlane
       run: bundle exec fastlane ci
       env:
           DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_CI_TOKEN }}
