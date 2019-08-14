@@ -23,7 +23,7 @@ jobs:
         protocol=https
         host=github.com
         username=Nef10
-        password=${{ secrets.GITHUB_TOKEN }}
+        password=${{ secrets.GITHUB_CI_TOKEN }}
         " | git credential-osxkeychain store
     - name: Test GitHub Token for Carthage
       run: |
