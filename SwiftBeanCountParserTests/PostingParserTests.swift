@@ -111,12 +111,14 @@ class PostingParserTests: XCTestCase {
 
     func testCost() {
         let posting = PostingParser.parseFrom(line: costPostingString, into: transaction)!
-        XCTAssertEqual(posting.cost!, Cost(amount: Amount(number: Decimal(1.003), commodity: Commodity(symbol: "EUR"), decimalDigits: 3), date: TestUtils.date20170609, label: "TEST"))
+        XCTAssertEqual(posting.cost!,
+                       Cost(amount: Amount(number: Decimal(1.003), commodity: Commodity(symbol: "EUR"), decimalDigits: 3), date: TestUtils.date20170609, label: "TEST"))
     }
 
     func testCostAndUnitPrice() {
         let posting = PostingParser.parseFrom(line: costAndUnitPricePostingString, into: transaction)!
-        XCTAssertEqual(posting.cost!, Cost(amount: Amount(number: Decimal(1.003), commodity: Commodity(symbol: "EUR"), decimalDigits: 3), date: TestUtils.date20170609, label: nil))
+        XCTAssertEqual(posting.cost!,
+                       Cost(amount: Amount(number: Decimal(1.003), commodity: Commodity(symbol: "EUR"), decimalDigits: 3), date: TestUtils.date20170609, label: nil))
         XCTAssertEqual(posting.price, Amount(number: Decimal(1.003), commodity: Commodity(symbol: "EUR"), decimalDigits: 3))
     }
 

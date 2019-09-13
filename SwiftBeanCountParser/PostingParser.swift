@@ -14,7 +14,8 @@ struct PostingParser {
     static private let priceGroup = "(\\s+(@@?)\\s+(\(ParserUtils.amountGroup)))"
     static private let regex: NSRegularExpression = {
         // swiftlint:disable:next force_try
-        try! NSRegularExpression(pattern: "^\\s+\(ParserUtils.accountGroup)\\s+\(ParserUtils.amountGroup)\\s*\(CostParser.costGroup)?\\s*\(priceGroup)?\\s*(;.*)?$", options: [])
+        try! NSRegularExpression(pattern: "^\\s+\(ParserUtils.accountGroup)\\s+\(ParserUtils.amountGroup)\\s*\(CostParser.costGroup)?\\s*\(priceGroup)?\\s*(;.*)?$",
+                                 options: [])
     }()
 
     /// Parse a Posting from a line String
@@ -45,7 +46,11 @@ struct PostingParser {
             }
             price = Amount(number: priceAmount, commodity: priceCommodity, decimalDigits: priceDecimalDigits)
         }
-        return Posting(account: account, amount: Amount(number: amount, commodity: commodity, decimalDigits: decimalDigits), transaction: transaction, price: price, cost: cost)
+        return Posting(account: account,
+                       amount: Amount(number: amount, commodity: commodity, decimalDigits: decimalDigits),
+                       transaction: transaction,
+                       price: price,
+                       cost: cost)
     }
 
 }
