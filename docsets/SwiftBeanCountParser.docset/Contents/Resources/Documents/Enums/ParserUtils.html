@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Parser Enumeration Reference</title>
+    <title>ParserUtils Enumeration Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -11,9 +11,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Enum/Parser" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Enum/ParserUtils" class="dashAnchor"></a>
 
-    <a title="Parser Enumeration Reference"></a>
+    <a title="ParserUtils Enumeration Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -42,7 +42,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html">SwiftBeanCountParser Reference</a>
       <img class="carat" src="../img/carat.png" />
-      Parser Enumeration Reference
+      ParserUtils Enumeration Reference
     </p>
 
     <div class="content-wrapper">
@@ -65,18 +65,18 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>Parser</h1>
+            <h1>ParserUtils</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Parser</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ParserUtils</span></code></pre>
 
                 </div>
               </div>
-            <p>Parser to parse a string of a file into a Ledger</p>
+            <p>Helper methods for parsing a ledger file</p>
 
               <div class="slightly-smaller">
-                <a href="https://github.com/Nef10/SwiftBeanCountParser/blob/master/Sources/SwiftBeanCountParser/Parser.swift#L13-L343">Show on GitHub</a>
+                <a href="https://github.com/Nef10/SwiftBeanCountParser/blob/master/Sources/SwiftBeanCountParser/ParserUtils.swift#L12-L44">Show on GitHub</a>
               </div>
           </div>
         </section>
@@ -88,9 +88,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:20SwiftBeanCountParser0D0O5parse9contentOf0abC5Model6LedgerC10Foundation3URLV_tKFZ"></a>
-                    <a name="//apple_ref/swift/Method/parse(contentOf:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:20SwiftBeanCountParser0D0O5parse9contentOf0abC5Model6LedgerC10Foundation3URLV_tKFZ">parse(contentOf:<wbr>)</a>
+                    <a name="/s:20SwiftBeanCountParser0D5UtilsO22parseAmountDecimalFrom6stringSo9NSDecimala_SitSS_tFZ"></a>
+                    <a name="//apple_ref/swift/Method/parseAmountDecimalFrom(string:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:20SwiftBeanCountParser0D5UtilsO22parseAmountDecimalFrom6stringSo9NSDecimala_SitSS_tFZ">parseAmountDecimalFrom(string:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -98,72 +98,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Parses a given file into a Ledger</p>
-<div class="aside aside-throws">
-    <p class="aside-title">Throws</p>
-    Exceptions from opening the file
-
-</div>
+                        <p>Parses an string into an Decimal</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">parse</span><span class="p">(</span><span class="n">contentOf</span> <span class="nv">path</span><span class="p">:</span> <span class="kt">URL</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Ledger</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>contentOf</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>URL to parse Encoding has to be UTF-8</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>Ledger with parsed content</p>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/Nef10/SwiftBeanCountParser/blob/master/Sources/SwiftBeanCountParser/Parser.swift#L35-L38">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:20SwiftBeanCountParser0D0O5parse6string0abC5Model6LedgerCSS_tFZ"></a>
-                    <a name="//apple_ref/swift/Method/parse(string:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:20SwiftBeanCountParser0D0O5parse6string0abC5Model6LedgerCSS_tFZ">parse(string:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Parses a given String into a Ledger</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">parse</span><span class="p">(</span><span class="nv">string</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Ledger</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">parseAmountDecimalFrom</span><span class="p">(</span><span class="nv">string</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">Decimal</span><span class="p">,</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -179,7 +121,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>String to parse</p>
+                                  <p>string with the amount</p>
                                 </div>
                               </td>
                             </tr>
@@ -188,10 +130,10 @@
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>Ledger with parsed content</p>
+                        <p>Tuple with the decimal ane the number of decimal palces the string contained</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/Nef10/SwiftBeanCountParser/blob/master/Sources/SwiftBeanCountParser/Parser.swift#L44-L49">Show on GitHub</a>
+                        <a href="https://github.com/Nef10/SwiftBeanCountParser/blob/master/Sources/SwiftBeanCountParser/ParserUtils.swift#L22-L42">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
