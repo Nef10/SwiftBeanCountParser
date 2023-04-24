@@ -14,7 +14,7 @@ plugin "beancount.plugins.nounused"
 
 * Custom
 
-1994-12-21 custom "fava-option" "journal-show" "transaction balance note document custom budget open close"=
+1994-12-21 custom "fava-option" "journal-show" "transaction balance note document custom budget open close"
 
 * Commodities
 
