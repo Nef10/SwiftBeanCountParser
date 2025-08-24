@@ -12,10 +12,7 @@ import SwiftBeanCountParserUtils
 
 enum OptionParser {
 
-    private static let regex: NSRegularExpression = {
-        // swiftlint:disable:next force_try
-        try! NSRegularExpression(pattern: "^option\\s+\"([^\"]*)\"\\s+\"([^\"]*)\"\\s*(;.*)?$", options: [])
-    }()
+    private static let regex = try! Regex("^option\\s+\"([^\"]*)\"\\s+\"([^\"]*)\"\\s*(;.*)?$")
 
     static func parseFrom(line: String) -> Option? {
         let matches = line.matchingStrings(regex: self.regex)

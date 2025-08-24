@@ -11,10 +11,7 @@ import SwiftBeanCountParserUtils
 
 enum PluginParser {
 
-    private static let regex: NSRegularExpression = {
-        // swiftlint:disable:next force_try
-        try! NSRegularExpression(pattern: "^plugin\\s+\"([^\"]*)\"\\s*(;.*)?$", options: [])
-    }()
+    private static let regex = try! Regex("^plugin\\s+\"([^\"]*)\"\\s*(;.*)?$")
 
     static func parseFrom(line: String) -> String? {
         let matches = line.matchingStrings(regex: self.regex)
