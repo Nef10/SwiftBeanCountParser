@@ -1,0 +1,117 @@
+# SwiftBeanCountParser
+
+SwiftBeanCountParser is a Swift Package Manager library that parses BeanCount (plain text accounting) format files into structured Swift objects using SwiftBeanCountModel. This library is part of the larger SwiftBeanCount ecosystem for double-entry bookkeeping in Swift.
+
+Always reference these instructions first and fallback to search or bash commands only when you encounter unexpected information that does not match the info here.
+
+## Working Effectively
+
+- **Install Swift (if needed)**: Swift 6.1.2+ is required. The setup-swift GitHub Action installs it automatically in CI.
+- **Build the library**: `swift build` -- takes 7 seconds clean build, <1 second for incremental builds. NEVER CANCEL. Set timeout to 30+ minutes.
+- **Run tests**: `swift test` -- takes 12 seconds. NEVER CANCEL. Set timeout to 30+ minutes.
+- **Run tests with coverage**: `swift test --enable-code-coverage` -- takes 15 seconds. NEVER CANCEL. Set timeout to 30+ minutes.
+- **Install SwiftLint**: 
+  ```bash
+  curl -L https://github.com/realm/SwiftLint/releases/download/0.59.1/swiftlint_linux.zip -o swiftlint.zip
+  unzip swiftlint.zip -d swiftlint
+  ./swiftlint/swiftlint --version
+  ```
+- **Run linting**: `./swiftlint/swiftlint --strict` -- takes <1 second. Must pass for CI to succeed.
+
+## Validation
+
+- **ALWAYS run through complete parsing scenario after making changes**: Create a test BeanCount file and verify it parses correctly using the test suite.
+- **ALWAYS run `./swiftlint/swiftlint --strict` before committing** or the CI (.github/workflows/ci.yml) will fail.
+- **Manual validation scenario**: Test parsing by examining existing test files in `Tests/SwiftBeanCountParserTests/Resources/` like `Minimal.beancount` and `Big.beancount`.
+- **CRITICAL validation**: After changes, run `swift test` and ensure all 123 tests pass. Any test failure indicates broken functionality.
+- The library has comprehensive test coverage with performance tests - these should continue to pass after changes.
+
+## Common Tasks
+
+### Build Times and Never Cancel Rules
+- **NEVER CANCEL builds or tests** - All commands complete quickly but set generous timeouts
+- `swift build`: 7 seconds clean build, <1 second incremental - Set timeout to 30+ minutes
+- `swift test`: 12 seconds - Set timeout to 30+ minutes  
+- `swift test --enable-code-coverage`: 15 seconds - Set timeout to 30+ minutes
+- `./swiftlint/swiftlint --strict`: <1 second - Set timeout to 15+ minutes
+
+### Key File Locations
+- **Main parser entry point**: `Sources/SwiftBeanCountParser/Parser.swift` - Contains `parse(contentOf:)` and `parse(string:)` methods
+- **Individual parsers**: `Sources/SwiftBeanCountParser/*Parser.swift` - Handle specific BeanCount constructs
+- **Test files**: `Tests/SwiftBeanCountParserTests/` - All tests use XCTest framework
+- **Sample BeanCount files**: `Tests/SwiftBeanCountParserTests/Resources/` - Use these for testing and validation
+- **Package definition**: `Package.swift` - Swift Package Manager configuration
+- **CI configuration**: `.github/workflows/ci.yml` - Build, test, lint pipeline
+
+### Understanding BeanCount Format
+BeanCount files use plain text format for double-entry bookkeeping. Example from `Minimal.beancount`:
+```
+2017-06-08 commodity EUR
+2017-06-08 open Equity:OpeningBalance  
+2017-06-08 open Assets:Checking
+2017-06-08 * "Payee" "Narration"
+  Equity:OpeningBalance -1.00 EUR
+  Assets:Checking 1.00 EUR
+```
+
+### Making Parser Changes
+- **Always test with existing Resources**: Use test files like `Big.beancount` for comprehensive testing
+- **Run performance tests**: Several tests include performance measurements - ensure these don't regress
+- **Test error handling**: Files like `InvalidCost.beancount` test error scenarios
+- **Check round-trip parsing**: The test suite includes round-trip tests that parse → serialize → parse again
+
+### Dependencies
+The library depends on:
+- `SwiftBeanCountModel` (0.1.6 exact) - Data models for parsed objects
+- `SwiftBeanCountParserUtils` (1.0.0+) - Utility functions for parsing
+
+### Common Issues
+- **Build errors**: Usually resolved by clean build: `rm -rf .build && swift build`
+- **Test failures**: Check that sample files in Resources/ are valid BeanCount format
+- **Linting failures**: Run `./swiftlint/swiftlint --strict` and fix reported issues
+- **Coverage issues**: CI enforces minimum coverage thresholds defined in `.github/minimum_coverage.txt`
+
+## Exact Commands Reference
+
+### Setup (run once)
+```bash
+# Install SwiftLint (required for linting)
+curl -L https://github.com/realm/SwiftLint/releases/download/0.59.1/swiftlint_linux.zip -o swiftlint.zip
+unzip swiftlint.zip -d swiftlint
+./swiftlint/swiftlint --version  # Should show: 0.59.1
+```
+
+### Development Workflow (run before every commit)
+```bash
+# Clean build (if needed)
+rm -rf .build
+
+# Build library (NEVER CANCEL - timeout 30+ minutes)
+swift build
+
+# Run all tests (NEVER CANCEL - timeout 30+ minutes)  
+swift test
+
+# Run linting (NEVER CANCEL - timeout 15+ minutes)
+./swiftlint/swiftlint --strict
+
+# Run tests with coverage for CI validation (NEVER CANCEL - timeout 30+ minutes)
+swift test --enable-code-coverage
+```
+
+### Validation Scenarios
+```bash
+# Test parsing of minimal file
+swift test --filter ParserTests.testMinimal
+
+# Test parsing of comprehensive file  
+swift test --filter ParserTests.testBig
+
+# Test performance doesn't regress
+swift test --filter testPerformance
+
+# Test round-trip parsing works
+swift test --filter ParserTests.testRoundTrip
+```
+
+All validation scenarios should complete successfully for changes to be ready for commit.
