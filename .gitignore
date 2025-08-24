@@ -4,3 +4,7 @@
 /*.xcodeproj
 xcuserdata/
 .swiftpm
+
+# SwiftLint temporary files
+swiftlint.zip
+swiftlint/

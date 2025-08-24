@@ -15,9 +15,9 @@ enum PostingParser {
     private static let priceGroup = "(\\s+(@@?)\\s+(\(ParserUtils.amountGroup)))"
 
     private static let regex: NSRegularExpression = {
+        let pattern = "^\\s+\(ParserUtils.accountGroup)\\s+\(ParserUtils.amountGroup)\\s*\(CostParser.costGroup)?\\s*\(priceGroup)?\\s*(;.*)?$"
         // swiftlint:disable:next force_try
-        try! NSRegularExpression(pattern: "^\\s+\(ParserUtils.accountGroup)\\s+\(ParserUtils.amountGroup)\\s*\(CostParser.costGroup)?\\s*\(priceGroup)?\\s*(;.*)?$",
-                                 options: [])
+        return try! NSRegularExpression(pattern: pattern, options: [])
     }()
 
     /// Parse a Posting from a line String
