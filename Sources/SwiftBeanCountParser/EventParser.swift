@@ -12,7 +12,10 @@ import SwiftBeanCountParserUtils
 
 enum EventParser {
 
-    private static let regex = try! Regex("^\(DateParser.dateGroup)\\s+event\\s+\"([^\"]*)\"\\s+\"([^\"]*)\"\\s*(;.*)?$")
+    private static let regex: NSRegularExpression = {
+        // swiftlint:disable:next force_try
+        try! NSRegularExpression(pattern: "^\(DateParser.dateGroup)\\s+event\\s+\"([^\"]*)\"\\s+\"([^\"]*)\"\\s*(;.*)?$", options: [])
+    }()
 
     static func parseFrom(line: String, metaData: [String: String] = [:]) -> Event? {
         let matches = line.matchingStrings(regex: self.regex)

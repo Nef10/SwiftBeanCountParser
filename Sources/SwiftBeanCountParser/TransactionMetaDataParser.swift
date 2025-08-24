@@ -12,7 +12,10 @@ import SwiftBeanCountParserUtils
 
 enum TransactionMetaDataParser {
 
-    private static let regex = try! Regex("^\(DateParser.dateGroup)\\s+([*!])\\s+(\"([^\"]*)\"\\s+)\"([^\"]*)\"\\s*((#([^\\s#]*)\\s*)*)(;.*)?$")
+    private static let regex: NSRegularExpression = {
+        // swiftlint:disable:next force_try
+        try! NSRegularExpression(pattern: "^\(DateParser.dateGroup)\\s+([*!])\\s+(\"([^\"]*)\"\\s+)\"([^\"]*)\"\\s*((#([^\\s#]*)\\s*)*)(;.*)?$", options: [])
+    }()
 
     /// Parse TransactionMetaData from a line String
     ///

@@ -12,7 +12,10 @@ import SwiftBeanCountParserUtils
 
 enum PriceParser {
 
-    private static let regex = try! Regex("^\(DateParser.dateGroup)\\s+price\\s+\(ParserUtils.commodityGroup)\\s+\(ParserUtils.amountGroup)\\s*(;.*)?$")
+    private static let regex: NSRegularExpression = {
+        // swiftlint:disable:next force_try
+        try! NSRegularExpression(pattern: "^\(DateParser.dateGroup)\\s+price\\s+\(ParserUtils.commodityGroup)\\s+\(ParserUtils.amountGroup)\\s*(;.*)?$", options: [])
+    }()
 
     /// Parse prices from a line String
     ///

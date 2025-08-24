@@ -12,11 +12,12 @@ import SwiftBeanCountParserUtils
 
 enum AccountParser {
 
-    private static let regex = {
+    private static let regex: NSRegularExpression = {
         let bookingMethod = "(\\s+\"(FIFO|LIFO|STRICT)\")"
         let commodity = "([^\";\\s][^\\s]*)"
         let regexPattern = "^\(DateParser.dateGroup)\\s+(open|close)\\s+\(ParserUtils.accountGroup)(\\s+\(commodity))?\(bookingMethod)?\\s*(;.*)?$"
-        return try! Regex(regexPattern)
+        // swiftlint:disable:next force_try
+        return try! NSRegularExpression(pattern: regexPattern, options: [])
     }()
 
     /// Parse account openings and closings from a line String

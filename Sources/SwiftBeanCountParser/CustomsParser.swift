@@ -12,7 +12,10 @@ import SwiftBeanCountParserUtils
 
 enum CustomsParser {
 
-    private static let regex = try! Regex("^\(DateParser.dateGroup)\\s+custom\\s+\"([^\"]*)\"((\\s+\"([^\"]*)\")+)\\s*(;.*)?$")
+    private static let regex: NSRegularExpression = {
+        // swiftlint:disable:next force_try
+        try! NSRegularExpression(pattern: "^\(DateParser.dateGroup)\\s+custom\\s+\"([^\"]*)\"((\\s+\"([^\"]*)\")+)\\s*(;.*)?$", options: [])
+    }()
 
     static func parseFrom(line: String, metaData: [String: String] = [:]) -> Custom? {
         let matches = line.matchingStrings(regex: self.regex)
@@ -20,7 +23,7 @@ enum CustomsParser {
             return nil
         }
         let values: [String] = match[3].split(separator: "\"").compactMap {
-            let trimmed = $0.trimmingCharacters(in: .whitespaces)
+            let trimmed = $0.trimmingCharacters(in: CharacterSet.whitespaces)
             return trimmed.isEmpty ? nil : String($0)
         }
         return Custom(date: date, name: match[2], values: values, metaData: metaData)
