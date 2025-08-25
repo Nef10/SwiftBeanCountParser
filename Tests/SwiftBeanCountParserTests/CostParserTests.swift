@@ -163,23 +163,23 @@ final class CostParserTests: XCTestCase {
 
     func testUnexpectedElements() throws {
         // These should throw errors because they contain unexpected elements
-        
+
         // Test with unexpected text after valid elements
         XCTAssertThrowsError(try cost(from: "{2017-06-09, 1.003 EUR, \"TEST\", unexpected}"))
-        
+
         // Test with unexpected numbers
         XCTAssertThrowsError(try cost(from: "{2017-06-09, 1.003 EUR, 123}"))
-        
+
         // Test with unexpected symbols
         XCTAssertThrowsError(try cost(from: "{2017-06-09, 1.003 EUR, @invalid}"))
-        
+
         // Test with multiple unexpected elements
         XCTAssertThrowsError(try cost(from: "{2017-06-09, 1.003 EUR, \"TEST\", extra, stuff}"))
-        
+
         // Test with unexpected text in different positions
         XCTAssertThrowsError(try cost(from: "{unexpected, 2017-06-09, 1.003 EUR}"))
         XCTAssertThrowsError(try cost(from: "{2017-06-09, unexpected, 1.003 EUR}"))
-        
+
         // Test that valid costs still work (should not throw)
         XCTAssertNoThrow(try cost(from: "{2017-06-09, 1.003 EUR, \"TEST\"}"))
         XCTAssertNoThrow(try cost(from: "{\"TEST\"}"))
