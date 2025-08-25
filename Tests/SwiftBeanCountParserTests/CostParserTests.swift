@@ -188,4 +188,16 @@ final class CostParserTests: XCTestCase {
         XCTAssertNoThrow(try cost(from: "{}"))
     }
 
+    func testCostParsingErrorDescription() throws {
+        // Test the errorDescription property of CostParsingError
+        do {
+            _ = try cost(from: "{2017-06-09, 1.003 EUR, \"TEST\", unexpected}")
+            XCTFail("Expected CostParsingError to be thrown")
+        } catch let error as CostParsingError {
+            XCTAssertEqual(error.errorDescription, "Unexpected elements in cost: unexpected")
+        } catch {
+            XCTFail("Expected CostParsingError, but got: \(error)")
+        }
+    }
+
 }
