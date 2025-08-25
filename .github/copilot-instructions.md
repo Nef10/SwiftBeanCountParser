@@ -7,32 +7,24 @@ Always reference these instructions first and fallback to search or bash command
 ## Working Effectively
 
 - **Install Swift (if needed)**: Swift 6.1.2+ is required. The setup-swift GitHub Action installs it automatically in CI.
+- **Install SwiftLint**: Check instructions in .github/ci.yml under the "SwiftLint" action, "Install SwiftLint" step
 - **Build the library**: `swift build` -- takes 7 seconds clean build, <1 second for incremental builds. NEVER CANCEL. Set timeout to 3 minutes.
-- **Run tests**: `swift test` -- takes 12 seconds. NEVER CANCEL. Set timeout to 3 minutes.
-- **Run tests with coverage**: `swift test --enable-code-coverage` -- takes 15 seconds. NEVER CANCEL. Set timeout to 3 minutes.
-- **Install SwiftLint**: 
-  ```bash
-  curl -L https://github.com/realm/SwiftLint/releases/download/0.59.1/swiftlint_linux.zip -o swiftlint.zip
-  unzip swiftlint.zip -d swiftlint
-  ./swiftlint/swiftlint --version
-  ```
+- **Run tests with coverage**: `swift test --enable-code-coverage` -- takes 15 seconds. NEVER CANCEL. Set timeout to 3 minutes. Must pass for CI to succeed and coverage must be > 97%.
 - **Run linting**: `./swiftlint/swiftlint --strict` -- takes <1 second. Must pass for CI to succeed.
 
 ## Validation
 
 - **ALWAYS run through complete parsing scenario after making changes**: Create a test BeanCount file and verify it parses correctly using the test suite.
 - **ALWAYS run `./swiftlint/swiftlint --strict` before committing** or the CI (.github/workflows/ci.yml) will fail.
-- **EACH COMMIT MUST BE ACCOMPANIED WITH PROPER TESTS**: Every code change should include appropriate test coverage to validate the functionality.
-- **Manual validation scenario**: Test parsing by examining existing test files in `Tests/SwiftBeanCountParserTests/Resources/` like `Minimal.beancount` and `Big.beancount`.
-- **CRITICAL validation**: After changes, run `swift test` and ensure all 123 tests pass. Any test failure indicates broken functionality.
-- The library has comprehensive test coverage with performance tests - these should continue to pass after changes.
+- **EACH COMMIT MUST BE ACCOMPANIED WITH PROPER TESTS**: Every code change should include appropriate test coverage to validate the functionality. The library has a requirement to keep line coverage above 97%, this is enforced via CI job which will fail otherwise.
+- **CRITICAL validation**: After changes, run `swift test` and ensure all tests pass. Any test failure indicates broken functionality. The library has comprehensive test coverage with performance tests - these should continue to pass after changes.
 
 ## Common Tasks
 
 ### Build Times and Never Cancel Rules
 - **NEVER CANCEL builds or tests** - All commands complete quickly but set reasonable timeouts
 - `swift build`: 7 seconds clean build, <1 second incremental - Set timeout to 3 minutes
-- `swift test`: 12 seconds - Set timeout to 3 minutes  
+- `swift test`: 12 seconds - Set timeout to 3 minutes
 - `swift test --enable-code-coverage`: 15 seconds - Set timeout to 3 minutes
 - `./swiftlint/swiftlint --strict`: <1 second - Set timeout to 1 minute
 
@@ -48,7 +40,7 @@ Always reference these instructions first and fallback to search or bash command
 BeanCount files use plain text format for double-entry bookkeeping. Example from `Minimal.beancount`:
 ```
 2017-06-08 commodity EUR
-2017-06-08 open Equity:OpeningBalance  
+2017-06-08 open Equity:OpeningBalance
 2017-06-08 open Assets:Checking
 2017-06-08 * "Payee" "Narration"
   Equity:OpeningBalance -1.00 EUR
@@ -77,12 +69,9 @@ For exact versions and constraints, check `Package.swift` in the repository root
 ## Exact Commands Reference
 
 ### Setup (run once)
-```bash
-# Install SwiftLint (required for linting)
-curl -L https://github.com/realm/SwiftLint/releases/download/0.59.1/swiftlint_linux.zip -o swiftlint.zip
-unzip swiftlint.zip -d swiftlint
-./swiftlint/swiftlint --version  # Should show: 0.59.1
-```
+
+Install SwiftLint:
+Check instructions in .github/ci.yml under the "SwiftLint" action, "Install SwiftLint" step, to see how to curl and unzip the correct version of swiftlint. Ensure to use the exact version mentioned in ci.yml
 
 ### Development Workflow (run before every commit)
 ```bash
@@ -92,7 +81,7 @@ rm -rf .build
 # Build library (NEVER CANCEL - timeout 3 minutes)
 swift build
 
-# Run all tests (NEVER CANCEL - timeout 3 minutes)  
+# Run all tests (NEVER CANCEL - timeout 3 minutes)
 swift test
 
 # Run linting (NEVER CANCEL - timeout 1 minute)
@@ -103,20 +92,3 @@ swift test --enable-code-coverage
 ```
 
 **IMPORTANT**: Each commit must be accompanied with proper tests that validate the changes made.
-
-### Validation Scenarios
-```bash
-# Test parsing of minimal file
-swift test --filter ParserTests.testMinimal
-
-# Test parsing of comprehensive file  
-swift test --filter ParserTests.testBig
-
-# Test performance doesn't regress
-swift test --filter testPerformance
-
-# Test round-trip parsing works
-swift test --filter ParserTests.testRoundTrip
-```
-
-All validation scenarios should complete successfully for changes to be ready for commit.
