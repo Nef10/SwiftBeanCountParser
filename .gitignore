@@ -4,7 +4,6 @@
 /*.xcodeproj
 xcuserdata/
 .swiftpm
-
-# SwiftLint
 swiftlint/
 swiftlint.zip
+swiftlint_linux.zip
